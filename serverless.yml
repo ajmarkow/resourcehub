@@ -1,0 +1,55 @@
+# NOTE: update this with your service name
+service: resourcehub
+
+# Create an optimized package for our functions 
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle # Package our functions with Webpack
+  - serverless-offline
+  - serverless-dotenv-plugin # Load .env as environment variables
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-west-2
+  # To load environment variables externally
+  # rename env.example to .env and uncomment
+  # the following line. Also, make sure to not
+  # commit your .env.
+  #
+  environment:
+   tableName: posts
+   
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:Scan
+      - dynamodb:Query
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
+      - dynamodb:DescribeTable
+    Resource: "arn:aws:dynamodb:us-west-2:*:*"
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+  # Name of function defines service in serverless framework
+  create:
+  # Which javascript file and function are handling this
+    handler: create.main
+  # What events it respons to
+    events:
+      -http:
+      # ourapiurl/posts 
+        path: posts
+      # HTTP Verb, POST in this case.
+      method: post
