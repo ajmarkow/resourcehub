@@ -7,8 +7,8 @@ export async function main(event, context) {
   const data = JSON.parse(event.body);
 
   const params = {
-    TableName: process.env.TableName,
-    Post: {
+    TableName: process.env.tableName,
+    Item: {
       userId: "123",
       postId: uuid.v1(),
       postBlurb: data.postBlurb,
@@ -22,11 +22,12 @@ export async function main(event, context) {
   };
 
   try {
+    console.log(params);
     await dynamoDb.put(params).promise();
 
     return {
       statusCode: 200,
-      body: JSON.stringify(params.Post),
+      body: JSON.stringify(params.Item),
     };
   } catch (e) {
     return {

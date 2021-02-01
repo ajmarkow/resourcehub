@@ -48,8 +48,8 @@ functions:
     handler: create.main
   # What events it respons to
     events:
-      -http:
+      - http:
       # ourapiurl/posts 
-        path: posts
+          path: posts
       # HTTP Verb, POST in this case.
-      method: post
+          method: post

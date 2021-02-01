@@ -1,11 +1,3 @@
 {
-  "body": 
-  "{
-    \"postBlurb\":\"Its a social network for coders.\",
-    \"postLink\":\"https://dev.to\",
-    \"postLanguage\":\"JavaScript\",
-    \"postKeywords\":\"['social network','tutorial']\",
-    \"postRating\":5,
-    \"attachment\":\"hello.jpg\"
-  }"
+  "body": "{\"postBlurb\":\"Its a social network for coders.\",\"postLink\":\"https://dev.to\",\"postLanguage\":\"JavaScript\",\"postKeywords\":\"['social network','tutorial']\",\"postRating\":5,\"attachment\":\"hello.jpg\"}"
 }
