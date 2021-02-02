@@ -5,7 +5,7 @@ export const main = handler(async (event, context) => {
   const params = {
     TableName: process.env.tableName,
     Key: {
-      userId: "123",
+      userId: event.requestContext.identity.cognitoIdentityId,
       postId: event.pathParameters.id,
     },
   };
@@ -17,4 +17,4 @@ export const main = handler(async (event, context) => {
   }
 
   return result.Item;
-  });
+});

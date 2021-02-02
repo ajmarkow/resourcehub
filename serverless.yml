@@ -21,19 +21,19 @@ provider:
   # commit your .env.
   #
   environment:
-   tableName: posts
-   
-iamRoleStatements:
-  - Effect: Allow
-    Action:
-      - dynamodb:Scan
-      - dynamodb:Query
-      - dynamodb:GetItem
-      - dynamodb:PutItem
-      - dynamodb:UpdateItem
-      - dynamodb:DeleteItem
-      - dynamodb:DescribeTable
-    Resource: "arn:aws:dynamodb:us-west-2:*:*"
+    tableName: posts
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+      Resource: "arn:aws:dynamodb:us-west-2:*:*"
 
 functions:
   # Name of function defines service in serverless framework
@@ -47,33 +47,39 @@ functions:
           path: posts
       # HTTP Verb, POST in this case.
           method: post
+          authorizer: aws_iam
   get:
     handler: get.main
     events:
       - http:
           path: posts/{id}
           method: get
+          authorizer: aws_iam
   randomget:
     handler: randomget.main
     events:
       - http:
           path: posts/random
           method: get
+          authorizer: aws_iam
   list:
     handler: list.main
     events:
       - http:
           path: posts
           method: get
+          authorizer: aws_iam
   update:
     handler: update.main
     events:
       - http:
           path: posts/{id}
           method: put
+          authorizer: aws_iam
   delete:
     handler: delete.main
     events:
       - http:
           path: posts/{id}
           method: delete
+          authorizer: aws_iam
