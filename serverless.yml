@@ -36,12 +36,6 @@ iamRoleStatements:
     Resource: "arn:aws:dynamodb:us-west-2:*:*"
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hello
-          method: get
   # Name of function defines service in serverless framework
   create:
   # Which javascript file and function are handling this
@@ -77,3 +71,9 @@ functions:
       - http:
           path: posts/{id}
           method: put
+  delete:
+    handler: delete.main
+    events:
+      - http:
+          path: posts/{id}
+          method: delete
