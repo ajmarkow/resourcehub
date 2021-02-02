@@ -46,10 +46,34 @@ functions:
   create:
   # Which javascript file and function are handling this
     handler: create.main
-  # What events it respons to
+  # What events it responds to
     events:
       - http:
       # ourapiurl/posts 
           path: posts
       # HTTP Verb, POST in this case.
           method: post
+  get:
+    handler: get.main
+    events:
+      - http:
+          path: posts/{id}
+          method: get
+  randomget:
+    handler: randomget.main
+    events:
+      - http:
+          path: posts/random
+          method: get
+  list:
+    handler: list.main
+    events:
+      - http:
+          path: posts
+          method: get
+  update:
+    handler: update.main
+    events:
+      - http:
+          path: posts/{id}
+          method: put
