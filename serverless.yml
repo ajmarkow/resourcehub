@@ -47,6 +47,7 @@ functions:
           path: posts
       # HTTP Verb, POST in this case.
           method: post
+          cors: true
           authorizer: aws_iam
   get:
     handler: get.main
@@ -54,6 +55,7 @@ functions:
       - http:
           path: posts/{id}
           method: get
+          cors: true
           authorizer: aws_iam
   randomget:
     handler: randomget.main
@@ -61,6 +63,7 @@ functions:
       - http:
           path: posts/random
           method: get
+          cors: true
           authorizer: aws_iam
   list:
     handler: list.main
@@ -68,6 +71,7 @@ functions:
       - http:
           path: posts
           method: get
+          cors: true
           authorizer: aws_iam
   update:
     handler: update.main
@@ -75,6 +79,7 @@ functions:
       - http:
           path: posts/{id}
           method: put
+          cors: true
           authorizer: aws_iam
   delete:
     handler: delete.main
@@ -82,4 +87,5 @@ functions:
       - http:
           path: posts/{id}
           method: delete
+          cors: true
           authorizer: aws_iam
