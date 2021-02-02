@@ -47,6 +47,7 @@ Session.vim
 # env
 env.yml
 .env
+USER_POOL_CONFIG.md
 
 # Jetbrains IDEs
 .idea
