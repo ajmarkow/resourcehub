@@ -57,11 +57,11 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
-  randomget:
-    handler: randomget.main
+  getall:
+    handler: getall.main
     events:
       - http:
-          path: posts/random
+          path: posts/all
           method: get
           cors: true
           # authorizer: aws_iam
