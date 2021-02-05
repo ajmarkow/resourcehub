@@ -64,7 +64,7 @@ functions:
           path: posts/random
           method: get
           cors: true
-          authorizer: aws_iam
+          # authorizer: aws_iam
   list:
     handler: list.main
     events:
