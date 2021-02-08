@@ -22,6 +22,7 @@ provider:
   #
   environment:
     tableName: posts
+    stripeSecretKey: ${env:STRIPE_SECRET_KEY}
 
   iamRoleStatements:
     - Effect: Allow
@@ -88,6 +89,13 @@ functions:
           path: posts/{id}
           method: delete
           cors: true
+          authorizer: aws_iam
+  billing:
+    handler: billing.main
+    events:
+      - http:
+          path: billing
+          method: post
           authorizer: aws_iam
 resources:
   - ${file(resources/api-gateway-errors.yml)}
