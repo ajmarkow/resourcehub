@@ -1,145 +1,110 @@
-# Serverless Node.js Starter
+# Re:source Hub API 
 
-A Serverless starter that adds ES6, TypeScript, serverless-offline, linting, environment variables, and unit test support. Part of the [Serverless Stack](http://serverless-stack.com) guide.
+* * *
+Re:Source Hub API, 2/10/2021
 
-[Serverless Node.js Starter](https://github.com/AnomalyInnovations/serverless-nodejs-starter) uses the [serverless-bundle](https://github.com/AnomalyInnovations/serverless-bundle) plugin and the [serverless-offline](https://github.com/dherault/serverless-offline) plugin. It supports:
+By **AJ Markow, Ben White, Chloe Hellberg**
 
-- **Generating optimized Lambda packages with Webpack**
-- **Using ES6 or TypeScript in your handler functions**
-- **Run API Gateway locally**
-  - Use `serverless offline start`
-- **Support for unit tests**
-  - Run `npm test` to run your tests
-- **Sourcemaps for proper error messages**
-  - Error message show the correct line numbers
-  - Works in production with CloudWatch
-- **Lint your code with ESLint**
-- **Add environment variables for your stages**
-- **No need to manage Webpack or Babel configs**
 
----
+## Description
 
-### Demo
+[Image: ServerlessFlow.png]
+RESTful API with full CRUD functionality using AWS Services such as, Lambda, API Gateway, DynamoDB, Cognito, and S3. Also uses the Stripe API to power a donation endpoint to the API.
 
-A demo version of this service is hosted on AWS - [`https://z6pv80ao4l.execute-api.us-east-1.amazonaws.com/dev/hello`](https://z6pv80ao4l.execute-api.us-east-1.amazonaws.com/dev/hello)
+### Endpoints
 
-And here is the ES6 source behind it
+**Authorization:
 
-``` javascript
-export const hello = async (event, context) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Go Serverless v1.0! ${(await message({ time: 1, copy: 'Your function executed successfully!'}))}`,
-      input: event,
-    }),
-  };
-};
+**
 
-const message = ({ time, ...rest }) => new Promise((resolve, reject) =>
-  setTimeout(() => {
-    resolve(`${rest.copy} (with a delay)`);
-  }, time * 1000)
-);
+* Authorization is integrated with AWS Cognito.
+    * You’ll need to create a user pool and corresponding IAM role for user pool in order for authenticated users to be able to call the API
+* The posts/all endpoint is the only exception to needing authorization.  This returns all resourcehub posts.
+
+[Image: image.png]**Data Structure:** 
+
+
+* All  posts endpoints consume and respond with JSON.  The Schema of posts is as follows:
+
+```
+    {
+      userId: event.requestContext.identity.cognitoIdentityId, //pulled from cognito
+      postId: uuid.v1(),
+      postBlurb: data.postBlurb,
+      postLink: data.postLink,
+      postLanguage: data.postLanguage,
+      postKeywords: data.postKeywords,
+      postRating: data.postRating,
+      attachment: data.attachment,
+      createdAt: Date.now(),
+    },
 ```
 
-### Upgrading from v1.x
+* The billing endpoint takes only POST requests and sends a donation of $1 to stripe account setup in API.  Stripe’s backend handles
 
-We have detailed instructions on how to upgrade your app to the v2.0 of the starter if you were using v1.x before. [Read about it here](https://github.com/AnomalyInnovations/serverless-nodejs-starter/releases/tag/v2.0).
+## Setup/Installation Requirements
 
-### Requirements
+**Prerequisite:**
 
-- [Install the Serverless Framework](https://serverless.com/framework/docs/providers/aws/guide/installation/)
-- [Configure your AWS CLI](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
+* You need to have an AWS (Amazon Web Services) Account:
+    * Sign up at https://aws.amazon.com/
+* You need to install the serverless framework on your machine
+    * [Install serverless framework](https://www.serverless.com/)
+* npm i -g serverless
+* You need to install and login to the aws-cli
+    * [Install aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+* You need a [Stripe](https://stripe.com/) api key
+* Create a DynamoDB table and take note of its name. 
+* Create an S3 Bucket and take note of its name
 
-### Installation
+**Setup Instructions**
 
-To create a new Serverless project.
+* Clone this github repository to your machine.
+* Cd into the cloned repository folder.
+* Run npm install
+* Create a  .env file with the following values defined:
 
-``` bash
-$ serverless install --url https://github.com/AnomalyInnovations/serverless-nodejs-starter --name my-project
+```
+S3_BUCKET = your S3 bucket name
+tableName = the name of the DynamoDB table in your aws account
+stripeSecretKey = your stripe secret key.
 ```
 
-Enter the new directory
+* If you haven’t already set up the aws cli, set it up with your account credentials.
+* Run serverless deploy to create the resources in your AWS account.
+* After running serverless deploy, the serverless command line interface will tell you the urls and info about the created resources. This info is helpful to take note of so you don’t have to go searching through your AWS account to find it.
 
-``` bash
-$ cd my-project
-```
+## Known Bugs
 
-Install the Node.js packages
+No known bugs at this time. Please report if you find any [here](https://github.com/ajmarkow/resourcehub/issues).
 
-``` bash
-$ npm install
-```
+## Support and contact details
 
-### Usage
+Ben White: https://github.com/BenW2140
+AJ Markow: https://github.com/ajmarkow
+Chloe Hellberg: https://github.com/chloehellberg
 
-To run a function on your local
+## Technologies Used
 
-``` bash
-$ serverless invoke local --function hello
-```
+* AWS Services
+    * Amplify
+    * API Gateway
+    * Cognito
+    * IAM
+    * Lambda
+    * Route 53
+    * S3
+* Third Party APIs
+    * Stripe
+* Frameworks
+    * Serverless Framework
+* Runtime 
+    * Node.js
+* Language 
+    * JavaScript
 
-To simulate API Gateway locally using [serverless-offline](https://github.com/dherault/serverless-offline)
+### License
 
-``` bash
-$ serverless offline start
-```
+[MIT License](https://opensource.org/licenses/MIT)
 
-Deploy your project
-
-``` bash
-$ serverless deploy
-```
-
-Deploy a single function
-
-``` bash
-$ serverless deploy function --function hello
-```
-
-#### Running Tests
-
-Run your tests using
-
-``` bash
-$ npm test
-```
-
-We use Jest to run our tests. You can read more about setting up your tests [here](https://facebook.github.io/jest/docs/en/getting-started.html#content).
-
-#### Environment Variables
-
-To add environment variables to your project
-
-1. Rename `env.example` to `.env`.
-2. Add environment variables for your local stage to `.env`.
-3. Uncomment `environment:` block in the `serverless.yml` and reference the environment variable as `${env:MY_ENV_VAR}`. Where `MY_ENV_VAR` is added to your `.env` file.
-4. Make sure to not commit your `.env`.
-
-#### TypeScript
-
-If [serverless-bundle](https://github.com/AnomalyInnovations/serverless-bundle) detects a `tsconfig.json` in your service root, it'll compile it using TypeScript. We have a separate starter for TypeScript here, [**Serverless TypeScript Starter**](https://github.com/AnomalyInnovations/serverless-typescript-starter).
-
-#### Linting
-
-We use [ESLint](https://eslint.org) to lint your code via [serverless-bundle](https://github.com/AnomalyInnovations/serverless-bundle).
-
-You can turn this off by adding the following to your `serverless.yml`.
-
-``` yaml
-custom:
-  bundle:
-    linting: false
-```
-
-To [override the default config](https://eslint.org/docs/user-guide/configuring), add a `.eslintrc.json` file. To ignore ESLint for specific files, add it to a `.eslintignore` file.
-
-### Support
-
-- Open a [new issue](https://github.com/AnomalyInnovations/serverless-nodejs-starter/issues/new) if you've found a bug or have some suggestions.
-- Or submit a pull request!
-
----
-
-This repo is maintained by [Anomaly Innovations](https://anoma.ly); makers of [Seed](https://seed.run) and [Serverless Stack](https://serverless-stack.com).
+Copyright (c) 2021 **AJ Markow, Ben White, Chloe Hellberg**
