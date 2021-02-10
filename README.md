@@ -2,6 +2,8 @@
 
 Re:Source Hub API, 2/10/2021
 
+**Built as interns at https://www.serverlessguru.com/**
+
 By **AJ Markow, Ben White, Chloe Hellberg**
 
 
