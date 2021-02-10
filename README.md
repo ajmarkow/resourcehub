@@ -1,6 +1,5 @@
 # Re:source Hub API 
 
-* * *
 Re:Source Hub API, 2/10/2021
 
 By **AJ Markow, Ben White, Chloe Hellberg**
