@@ -6,21 +6,20 @@ By **AJ Markow, Ben White, Chloe Hellberg**
 
 
 ## Description
-
-[Image: ServerlessFlow.png]
+![](https://i.imgur.com/XuGiKEZ.png)
 RESTful API with full CRUD functionality using AWS Services such as, Lambda, API Gateway, DynamoDB, Cognito, and S3. Also uses the Stripe API to power a donation endpoint to the API.
 
 ### Endpoints
 
-**Authorization:
+![](https://i.imgur.com/Jjk7pcp.png)
 
-**
+**Authorization:**
 
 * Authorization is integrated with AWS Cognito.
     * You’ll need to create a user pool and corresponding IAM role for user pool in order for authenticated users to be able to call the API
 * The posts/all endpoint is the only exception to needing authorization.  This returns all resourcehub posts.
 
-[Image: image.png]**Data Structure:** 
+**Data Structure:** 
 
 
 * All  posts endpoints consume and respond with JSON.  The Schema of posts is as follows:
