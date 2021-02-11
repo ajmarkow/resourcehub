@@ -2,8 +2,7 @@
 
 Re:Source Hub API, 2/10/2021
 
-**Built as interns at https://www.serverlessguru.com/**
-
+**Built as interns at https://www.serverlessguru.com/**<br>
 By **AJ Markow, Ben White, Chloe Hellberg**
 
 
@@ -80,9 +79,9 @@ No known bugs at this time. Please report if you find any [here](https://github.
 
 ## Support and contact details
 
-Ben White: https://github.com/BenW2140
-AJ Markow: https://github.com/ajmarkow
-Chloe Hellberg: https://github.com/chloehellberg
+Ben White: https://github.com/BenW2140 <br>
+AJ Markow: https://github.com/ajmarkow <br>
+Chloe Hellberg: https://github.com/chloehellberg <br>
 
 ## Technologies Used
 
